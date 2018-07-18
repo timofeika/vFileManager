@@ -1,13 +1,23 @@
 #include "stdafx.h"
 #include "vFileManager.h"
 
-
 vFileManager::vFileManager(char* vFileName)
 {
 	vFileInstance = 0;
 	isOpen = false;
 	vfmLength = 0;
 	int* tmpPtr = nullptr;
+	vfmFileName = nullptr;
+
+	if ((std::filesystem::is_directory(vFileName)) == true)
+	{
+		vfmDirectory = true;
+		return;
+	}
+		
+
+	if ((std::filesystem::exists(vFileName)) == false)
+		return;
 
 	vfmFileName = new char[FILENAME_MAX + 1];
 	memset(vfmFileName, 0, FILENAME_MAX);
@@ -33,7 +43,8 @@ vFileManager::~vFileManager()
 	isOpen = false;
 	vfmLength = 0;
 	vFileInstance = 0;
-	delete[] vfmFileName;
+	if (vfmFileName != nullptr)
+		delete[] vfmFileName;
 }
 
 

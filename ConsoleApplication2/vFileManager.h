@@ -14,8 +14,11 @@ public:
 	unsigned int Length();
 	inline bool vfmIsOpen() { return vFileManager::isOpen; }
 	unsigned int vfmReadFile(void* Buffer, unsigned int howMuchRead);
-	unsigned long vfmHowMuchRead;
 	unsigned int vfmWriteFile(void* Buffer, unsigned int howMuchWrite);
+	inline bool vfmIsDirectory() { return vFileManager::vfmDirectory; }
+protected:
+	unsigned long vfmHowMuchRead;
 	unsigned int vfmHowMuchWrite;
+	bool vfmDirectory = false;	// Is name directory? true = yes, false = no
 };
 
