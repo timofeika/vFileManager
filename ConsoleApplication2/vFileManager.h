@@ -3,16 +3,19 @@ class vFileManager
 {
 public:
 	vFileManager(char* vFileName);
+	vFileManager();
 	~vFileManager();
 protected:
-	// Main variable for functioning this class
-	int vFileInstance;
-	bool isOpen;
-	char* vfmFileName;
-	// Size of file
-	unsigned int vfmLength;
+	int vFileInstance;			// Main variable for functioning this class
+	bool isOpen;				// Is file open? true = yes, false = no
+	char* vfmFileName;			// File name
+	unsigned int vfmLength;		// Size of file
 public:
 	unsigned int Length();
-	virtual bool vfmIsOpen();
+	inline bool vfmIsOpen() { return vFileManager::isOpen; }
+	unsigned int vfmReadFile(void* Buffer, unsigned int howMuchRead);
+	unsigned long vfmHowMuchRead;
+	unsigned int vfmWriteFile(void* Buffer, unsigned int howMuchWrite);
+	unsigned int vfmHowMuchWrite;
 };
 

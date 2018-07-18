@@ -19,6 +19,12 @@ vFileManager::vFileManager(char* vFileName)
 		vFileManager::isOpen = true;
 }
 
+vFileManager::vFileManager()
+{
+	vFileInstance = 0;
+	isOpen = false;
+	vfmLength = 0;
+}
 
 vFileManager::~vFileManager()
 {
@@ -45,9 +51,15 @@ unsigned int vFileManager::Length()
 	return 0;
 }
 
-
-bool vFileManager::vfmIsOpen()
+unsigned int vFileManager::vfmReadFile(void* Buffer, unsigned int howMuchRead)
 {
 	// TODO: Добавьте сюда код реализации.
-	return isOpen;
+	return (unsigned int)_read(vFileManager::vFileInstance, Buffer, howMuchRead);
+}
+
+
+unsigned int vFileManager::vfmWriteFile(void* Buffer, unsigned int howMuchWrite)
+{
+	// TODO: Добавьте сюда код реализации.
+	return (unsigned int)_write(vFileManager::vFileInstance, Buffer, howMuchWrite);
 }
