@@ -8,6 +8,9 @@ vFileManager::vFileManager(char* vFileName)
 	vfmLength = 0;
 	int* tmpPtr = nullptr;
 	vfmFileName = nullptr;
+	vfmHowMuchRead = 0;
+	vfmHowMuchWrite = 0;
+	
 
 	if ((std::filesystem::is_directory(vFileName)) == true)
 	{
@@ -15,7 +18,6 @@ vFileManager::vFileManager(char* vFileName)
 		return;
 	}
 		
-
 	if ((std::filesystem::exists(vFileName)) == false)
 		return;
 
@@ -24,16 +26,19 @@ vFileManager::vFileManager(char* vFileName)
 	memcpy_s(vfmFileName, FILENAME_MAX, vFileName, FILENAME_MAX);
 
 	tmpPtr = &this->vFileInstance;
-	_sopen_s(tmpPtr, vFileManager::vfmFileName, _O_RDWR, _SH_DENYNO, _S_IREAD | _S_IWRITE);
+	err_num = _sopen_s(tmpPtr, vFileManager::vfmFileName, _O_RDWR | _O_BINARY, _SH_DENYNO, _S_IREAD | _S_IWRITE);
 	if (vFileManager::vFileInstance != -1)
 		vFileManager::isOpen = true;
 }
 
 vFileManager::vFileManager()
 {
+	vfmFileName = NULL;
 	vFileInstance = 0;
 	isOpen = false;
 	vfmLength = 0;
+	vfmHowMuchRead = 0;
+	vfmHowMuchWrite = 0;
 }
 
 vFileManager::~vFileManager()
